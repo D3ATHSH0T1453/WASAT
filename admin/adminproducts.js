@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
             button.addEventListener("click", function () {
                 const index = this.getAttribute("data-index");
                 localStorage.setItem('selectedProductIndex', index);
-                window.location.href = 'productinfo.html';
+                window.location.href = '../user/productinfo.html';
             });
         });
 
