@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
         productElement.dataset.index = index;
 
         productElement.innerHTML = `
-            <div id="borderfotos" class="p-3">
+            <div class="borderfotos p-3">
                 <img src="${product.urlLink}" alt="${product.product}" style="width: 50%; height: auto;">
                 <div class="info-text">${product.product}</div>
             </div>

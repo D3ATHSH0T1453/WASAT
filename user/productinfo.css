@@ -31,33 +31,29 @@ body {
     line-height: 1.5;
 }
 
-#WASAT {
+.WASAT {
     text-decoration: none;
 }
 
-#footer {
+.footer {
     margin-top: auto;
     color: white;
     font-size: 13px;
     background-color: #565656;
 }
 
-#footer a {
+.footer a {
     color: black;
     text-decoration: none;
 }
 
-#footer a:hover {
+.footer a:hover {
     color: white;
     text-decoration: underline;
 }
 
-#footer ul {
+.footer ul {
     list-style-type: none;
-}
-
-#BOTTOMTOP {
-    margin-bottom: 10px;
 }
 
 .betaalmanieren {
@@ -78,7 +74,7 @@ body {
     background-color: #565656;
 }
 
-#topnav {
+.topnav {
     margin-right: 5px;
     margin-left: 40px;
     margin-top: 2px;

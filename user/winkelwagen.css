@@ -9,7 +9,7 @@ body {
     flex-direction: column;
 }
 
-#WASAT {
+.WASAT {
     text-decoration: none;
 }
 
@@ -32,10 +32,6 @@ body {
 
 .footer ul {
     list-style-type: none;
-}
-
-.BOTTOMTOP {
-    margin-bottom: 10px;
 }
 
 .betaalmanieren {

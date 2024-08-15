@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     displayOrders();
 
     document.getElementById('clear-orders').addEventListener('click', () => {
-        if (confirm('Weet je zeker dat je alle orders wilt wissen?')) {
+        if (window.confirm('Weet je zeker dat je alle orders wilt wissen?')) {
             localStorage.removeItem('orders');
             displayOrders();
         }
@@ -19,7 +19,7 @@ function displayOrders() {
 
         const itemsHtml = order.items.map(item => {
             const price = parseFloat(item.price);
-            return isNaN(price) ? '' : `${item.product} (${item.quantity}x) - €${price.toFixed(2)}<br>`;
+            return Number.isNaN(price) ? '' : `${item.product} (${item.quantity}x) - €${price.toFixed(2)}<br>`;
         }).join('');
 
         const formattedDate = new Date(order.date).toLocaleString();

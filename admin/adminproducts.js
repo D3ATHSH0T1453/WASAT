@@ -11,11 +11,26 @@ document.addEventListener("DOMContentLoaded", () => {
             const row = document.createElement("tr");
 
             row.innerHTML = `
-                <td><input type="text" class="form-control" value="${product.product}" data-index="${index}" data-field="product"></td>
-                <td><input type="number" class="form-control" value="${product.price.replace('€ ', '')}" data-index="${index}" data-field="price"></td>
-                <td class="description-cell"><input type="text" class="form-control" value="${product.description || ''}" data-index="${index}" data-field="description"></td>
-                <td><input type="text" class="form-control" value="${product.urlLink || ''}" data-index="${index}" data-field="urlLink"></td>
-                <td><input type="number" class="form-control" value="${product.quantity}" data-index="${index}" data-field="quantity"></td>
+                <td>
+                    <input type="text" class="form-control" value="${product.product}" data-index="${index}" data
+                    -field="product">
+                </td>
+                <td>
+                    <input type="number" class="form-control" value="${product.price.replace('€ ', '')}" data-index
+                    "${index}" data-field="price">
+                </td>
+                <td class="description-cell">
+                    <input type="text" class="form-control" value="${product.description || ''}" data-index="${index}
+                    " data-field="description">
+                </td>
+                <td>
+                    <input type="text" class="form-control" value="${product.urlLink || ''}" data-index="${index}
+                    " data-field="urlLink">
+                </td>
+                <td>
+                    <input type="number" class="form-control" value="${product.quantity}" data-index="${index}
+                    " data-field="quantity">
+                </td>
                 <td>
                     <button class="btn btn-primary btn-sm view-product-btn" data-index="${index}">View</button>
                     <button class="btn btn-primary btn-sm edit-btn" data-index="${index}">Edit</button>
@@ -76,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 price: `€ ${document.getElementById("product-price").value}`,
                 description: document.getElementById("product-description").value,
                 urlLink: document.getElementById("product-picture").value,
-                quantity: document.getElementById("product-quantity").value
+                quantity: document.getElementById("product-quantity").value,
             };
         } else {
             products.push({
@@ -84,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 price: `€ ${document.getElementById("product-price").value}`,
                 description: document.getElementById("product-description").value,
                 urlLink: document.getElementById("product-picture").value,
-                quantity: document.getElementById("product-quantity").value
+                quantity: document.getElementById("product-quantity").value,
             });
         }
 

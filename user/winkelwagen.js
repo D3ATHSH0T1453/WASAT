@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
         totalPrice = 0;
         cart.forEach(product => {
             const productPrice = parseFloat(product.price.replace('€', '').trim());
-            if (isNaN(productPrice)) {
+            if (Number.isNaN(productPrice)) {
                 console.error(`Invalid price for product ${product.product}`);
                 return;
             }
@@ -26,12 +26,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     <div class="product-details col-md-8">
                         <img class="product-image" src="${product.urlLink}" alt="${product.product}">
                         <div>
-                            <>${product.product}</h4>
+                            <h4>${product.product}</h4>
                             <p>Prijs: €${productPrice.toFixed(2)}</p>
                             <div class="d-flex align-items-center">
-                                <button class="btn btn-secondary decrease-quantity" data-name="${product.product}">-</button>
+                                <button class="btn btn-secondary decrease-quantity" data-name="${product.product}
+                                ">-</button>
                                 <input type="text" class="form-control quantity" value="${product.quantity}" readonly>
-                                <button class="btn btn-secondary increase-quantity" data-name="${product.product}">+</button>
+                                <button class="btn btn-secondary increase-quantity" data-name="${product.product}
+                                ">+</button>
                             </div>
                         </div>
                     </div>
@@ -101,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return {
                     valid: false,
                     productName: item.product,
-                    maxQuantity: maxQuantity
+                    maxQuantity: maxQuantity,
                 };
             }
         }
@@ -111,7 +113,9 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('checkout').addEventListener('click', () => {
         const validation = validateCartQuantities();
         if (!validation.valid) {
-            alert(`De hoeveelheid van ${validation.productName} in je winkelwagen overschrijdt de beschikbare voorraad. Maximaal beschikbare hoeveelheid is ${validation.maxQuantity}.`);
+            alert(`De hoeveelheid van ${validation.productName} in je winkelwagen overschrijdt de beschikbare
+                 voorraad. Maximaal 
+                beschikbare hoeveelheid is ${validation.maxQuantity}.`);
             return;
         }
 
@@ -127,10 +131,10 @@ document.addEventListener("DOMContentLoaded", () => {
             items: cart.map(item => ({
                 product: item.product,
                 quantity: item.quantity,
-                price: parseFloat(item.price.replace('€', '').trim())
+                price: parseFloat(item.price.replace('€', '').trim()),
             })),
             total: totalPrice,
-            date: new Date().toISOString()
+            date: new Date().toISOString(),
         };
         orders.push(order);
         localStorage.setItem('orders', JSON.stringify(orders));
