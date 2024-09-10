@@ -21,7 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            const productHTML = `
+            const productHTML =
+             `
                 <div class="cart-item row">
                     <div class="product-details col-md-8">
                         <img class="product-image" src="../${product.urlLink}" alt="${product.product}"
