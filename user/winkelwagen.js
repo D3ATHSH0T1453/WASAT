@@ -24,7 +24,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const productHTML = `
                 <div class="cart-item row">
                     <div class="product-details col-md-8">
-                        <img class="product-image" src="../${product.urlLink}" alt="${product.product}">
+                        <img class="product-image" src="../${product.urlLink}" alt="${product.product}"
+                        >
                         <div>
                             <h4>${product.product}</h4>
                             <p>Prijs: €${productPrice.toFixed(2)}</p>
