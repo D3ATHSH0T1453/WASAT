@@ -39,7 +39,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         </div>
                     </div>
                     <div class="col-md-4 d-flex justify-content-end">
-                        <button class="btn btn-danger remove-btn" data-name="${product.product}">Verwijderen</button>
+                        <button class="btn btn-danger remove-btn" data-name="${product.product}">Verwijderen
+                        </button>
                     </div>
                 </div>`;
             cartItemsContainer.insertAdjacentHTML('beforeend', productHTML);
