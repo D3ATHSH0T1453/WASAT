@@ -16,7 +16,7 @@ WASAT biedt een platform voor gebruikers om producten te bekijken, toe te voegen
 
 ### Beheerderspagina's
 
-**Adminpagina:**
+**Adminpagina**
 - De Adminpagina is te vinden in de footer van de pagina, onder de sectie Service, helemaal aan de onderkant. Als je erop klikt, ben je op de Adminpagina.
 
 1. **Productbeheer:**
