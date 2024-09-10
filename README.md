@@ -23,7 +23,7 @@ WASAT biedt een platform voor gebruikers om producten te bekijken, toe te voegen
    - **adminproducts.html:** Beheerders kunnen producten toevoegen, bewerken, verwijderen of de productpagina's bekijken.
 
 2. **Orderbeheer:**
-   - **adminorderss.html:** Beheerders kunnen alle bestellingen bekijken, inclusief de besteltijd, totaalprijs, bestelID, en de producten die zijn gekocht.
+   - **adminorders.html:** Beheerders kunnen alle bestellingen bekijken, inclusief de besteltijd, totaalprijs, bestelID, en de producten die zijn gekocht.
 
 ## Installatie
 
