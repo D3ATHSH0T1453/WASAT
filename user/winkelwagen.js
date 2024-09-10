@@ -32,7 +32,8 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <button class="btn btn-secondary decrease-quantity" data-name="${product.product}">-
                                 </button>
                                 <input type="text" class="form-control quantity" value="${product.quantity}" readonly>
-                                <button class="btn btn-secondary increase-quantity" data-name="${product.product}">+</but
+                                <button class="btn btn-secondary increase-quantity" data-name="${product.product}">+<
+                                /but
                                 ton>
                             </div>
                         </div>
