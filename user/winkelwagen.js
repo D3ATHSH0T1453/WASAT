@@ -67,10 +67,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 const input = event.target.previousElementSibling;
                 const quantity = parseInt(input.value);
                 const product = cart.find(item => item.product === productName);
-                const maxQuantity = getProductQuantity(productName);
+                const quantityMax = getProductQuantity(productName);
 
                 if (product) {
-                    if (quantity < maxQuantity) {
+                    if (quantity < quantityMax) {
                         input.value = quantity + 1;
                         product.quantity++;
                         localStorage.setItem('cart', JSON.stringify(cart));
@@ -101,12 +101,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function validateCartQuantities() {
         for (const item of cart) {
-            const maxQuantity = getProductQuantity(item.product);
-            if (item.quantity > maxQuantity) {
+            const quantityMax = getProductQuantity(item.product);
+            if (item.quantity > quantityMax) {
                 return {
                     valid: false,
                     productName: item.product,
-                    maxQuantity: maxQuantity,
+                    quantityMax: quantityMax,
                 };
             }
         }
@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const validation = validateCartQuantities();
         if (!validation.valid) {
             alert(`De hoeveelheid van ${validation.productName} in je winkelwagen overschrijdt de beschikbare 
-                voorraad. Maximaal beschikbare hoeveelheid is ${validation.maxQuantity}.`);
+                voorraad. Maximaal beschikbare hoeveelheid is ${validation.quantityMax}.`);
             return;
         }
 
