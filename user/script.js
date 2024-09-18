@@ -12,8 +12,18 @@ function updateCartCount() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    console.log("DOMContentLoaded event triggered");
+
     const products = JSON.parse(localStorage.getItem('products')) || [];
+    console.log("Products loaded from localStorage:", products);
+
     const productsContainer = document.getElementById("midden");
+    console.log("Products container:", productsContainer);
+
+    if (!productsContainer) {
+        console.error("Element with id 'midden' not found.");
+        return;
+    }
 
     productsContainer.innerHTML = '';
 
@@ -21,6 +31,8 @@ document.addEventListener("DOMContentLoaded", () => {
         .map((product, originalIndex) => ({ ...product, originalIndex }))
         .filter(product => product.quantity > 0)
         .slice(0, 6);
+
+    console.log("Displayed Products:", displayedProducts);
 
     displayedProducts.forEach((product) => {
         const productElement = document.createElement("a");
