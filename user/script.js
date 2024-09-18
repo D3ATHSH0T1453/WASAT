@@ -1,29 +1,18 @@
-function updateCartCount() {
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
-    const cartCountElement = document.getElementById('cart-count');
-
-    if (cartCount > 0) {
-        cartCountElement.textContent = cartCount;
-        cartCountElement.style.display = 'block';
-    } else {
-        cartCountElement.style.display = 'none';
-    }
-}
-
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("DOMContentLoaded event triggered");
+    if (!localStorage.getItem('products')) {
+        fetch('../json/products.json')
+            .then(response => response.json())
+            .then(products => {
+                localStorage.setItem('products', JSON.stringify(products));
+                window.location.reload();
+            })
+            .catch(error => {
+                console.error('Error loading products:', error);
+            });
+    }
 
     const products = JSON.parse(localStorage.getItem('products')) || [];
-    console.log("Products loaded from localStorage:", products);
-
     const productsContainer = document.getElementById("midden");
-    console.log("Products container:", productsContainer);
-
-    if (!productsContainer) {
-        console.error("Element with id 'midden' not found.");
-        return;
-    }
 
     productsContainer.innerHTML = '';
 
@@ -31,8 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
         .map((product, originalIndex) => ({ ...product, originalIndex }))
         .filter(product => product.quantity > 0)
         .slice(0, 6);
-
-    console.log("Displayed Products:", displayedProducts);
 
     displayedProducts.forEach((product) => {
         const productElement = document.createElement("a");
@@ -70,3 +57,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     updateCartCount();
 });
+
+function updateCartCount() {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+    const cartCountElement = document.getElementById('cart-count');
+
+    if (cartCount > 0) {
+        cartCountElement.textContent = cartCount;
+        cartCountElement.style.display = 'block';
+    } else {
+        cartCountElement.style.display = 'none';
+    }
+}
