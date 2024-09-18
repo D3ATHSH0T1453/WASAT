@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             const productHTML =
-             `
+                `
                 <div class="cart-item row">
                     <div class="product-details col-md-8">
                         <img class="product-image" src="../${product.urlLink}" alt="${product.product}"
@@ -125,6 +125,15 @@ document.addEventListener("DOMContentLoaded", () => {
             alert('Je winkelwagen is leeg.');
             return;
         }
+
+        cart.forEach(item => {
+            const product = products.find(p => p.product === item.product);
+            if (product) {
+                product.quantity -= item.quantity;
+            }
+        });
+
+        localStorage.setItem('products', JSON.stringify(products));
 
         const orders = JSON.parse(localStorage.getItem('orders')) || [];
         const orderID = Math.floor(Math.random() * 90000) + 10000;

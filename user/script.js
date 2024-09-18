@@ -1,15 +1,39 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const products = JSON.parse(localStorage.getItem('products')) || [];
-    const displayedProducts = products.slice(0, 6);
+    loadAndDisplayProducts();
+    updateCartCount();
+});
+
+function loadAndDisplayProducts() {
+    let products = JSON.parse(localStorage.getItem('products'));
+
+    if (!products) {
+        fetch('../json/products.json')
+            .then(response => response.json())
+            .then(data => {
+                localStorage.setItem('products', JSON.stringify(data));
+                displayProducts(data);
+            })
+            .catch(error => console.error('Error loading products:', error));
+    } else {
+        displayProducts(products);
+    }
+}
+
+function displayProducts(products) {
     const productsContainer = document.getElementById("midden");
 
     productsContainer.innerHTML = '';
 
-    displayedProducts.forEach((product, index) => {
+    const displayedProducts = products
+        .map((product, originalIndex) => ({ ...product, originalIndex }))
+        .filter(product => product.quantity > 0)
+        .slice(0, 6);
+
+    displayedProducts.forEach((product) => {
         const productElement = document.createElement("a");
         productElement.href = '#';
         productElement.className = "col-4 border-container";
-        productElement.dataset.index = index;
+        productElement.dataset.index = product.originalIndex;
 
         productElement.innerHTML = `
             <div class="borderfotoss p-3">
@@ -38,4 +62,17 @@ document.addEventListener("DOMContentLoaded", () => {
             window.location.href = "user/productinfo.html";
         });
     });
-});
+}
+
+function updateCartCount() {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+    const cartCountElement = document.getElementById('cart-count');
+
+    if (cartCount > 0) {
+        cartCountElement.textContent = cartCount;
+        cartCountElement.style.display = 'block';
+    } else {
+        cartCountElement.style.display = 'none';
+    }
+}

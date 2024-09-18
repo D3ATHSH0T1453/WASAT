@@ -55,6 +55,8 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
         productDetails.innerHTML = `<p>No product selected. Please go back and select a product.</p>`;
     }
+
+    updateCartCount();
 });
 
 function addToCart(product, quantity) {
@@ -68,5 +70,18 @@ function addToCart(product, quantity) {
     }
 
     localStorage.setItem('cart', JSON.stringify(cart));
-    alert('Product is toegevoegd aan winkelwagen!');
+    updateCartCount();
+}
+
+function updateCartCount() {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+    const cartCountElement = document.getElementById('cart-count');
+
+    if (cartCount > 0) {
+        cartCountElement.textContent = cartCount;
+        cartCountElement.style.display = 'block';
+    } else {
+        cartCountElement.style.display = 'none';
+    }
 }

@@ -1,24 +1,44 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const products = JSON.parse(localStorage.getItem('products')) || [];
-    console.log("Producten geladen:", products);
+    loadAndDisplayProducts();
+    updateCartCount();
+});
 
+function loadAndDisplayProducts() {
+    let products = JSON.parse(localStorage.getItem('products'));
+
+    if (!products) {
+        fetch('../json/products.json')
+            .then(response => response.json())
+            .then(data => {
+                localStorage.setItem('products', JSON.stringify(data));
+                displayProducts(data);
+            })
+            .catch(error => console.error('Error loading products:', error));
+    } else {
+        displayProducts(products);
+    }
+}
+
+function displayProducts(products) {
     const productsContainer = document.getElementById("midden");
     productsContainer.innerHTML = '';
 
     products.forEach((product, index) => {
-        const productElement = document.createElement("a");
-        productElement.href = '#';
-        productElement.className = "col-4 border-container";
-        productElement.setAttribute("data-index", index);
+        if (product.quantity > 0) {
+            const productElement = document.createElement("a");
+            productElement.href = '#';
+            productElement.className = "col-4 border-container";
+            productElement.setAttribute("data-index", index);
 
-        productElement.innerHTML = `
-            <div id="borderfotos" class="p-3">
-                <img src="../${product.urlLink}" alt="${product.product}" style="width: 50%; height: auto;">
-                <div class="info-text">${product.product}</div>
-            </div>
-        `;
+            productElement.innerHTML = `
+                <div id="borderfotos" class="p-3">
+                    <img src="../${product.urlLink}" alt="${product.product}" style="width: 50%; height: auto;">
+                    <div class="info-text">${product.product}</div>
+                </div>
+            `;
 
-        productsContainer.appendChild(productElement);
+            productsContainer.appendChild(productElement);
+        }
     });
 
     const items = document.querySelectorAll(".border-container");
@@ -39,4 +59,17 @@ document.addEventListener("DOMContentLoaded", () => {
             window.location.href = "productinfo.html";
         });
     });
-});
+}
+
+function updateCartCount() {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+    const cartCountElement = document.getElementById('cart-counts');
+
+    if (cartCount > 0) {
+        cartCountElement.textContent = cartCount;
+        cartCountElement.style.display = 'block';
+    } else {
+        cartCountElement.style.display = 'none';
+    }
+}
