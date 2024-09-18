@@ -1,25 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    loadAndDisplayProducts();
-    updateCartCount();
-});
-
-function loadAndDisplayProducts() {
-    let products = JSON.parse(localStorage.getItem('products'));
-
-    if (!products) {
-        fetch('../json/products.json')
-            .then(response => response.json())
-            .then(data => {
-                localStorage.setItem('products', JSON.stringify(data));
-                displayProducts(data);
-            })
-            .catch(error => console.error('Error loading products:', error));
-    } else {
-        displayProducts(products);
-    }
-}
-
-function displayProducts(products) {
+    const products = JSON.parse(localStorage.getItem('products')) || [];
     const productsContainer = document.getElementById("midden");
 
     productsContainer.innerHTML = '';
@@ -62,7 +42,9 @@ function displayProducts(products) {
             window.location.href = "user/productinfo.html";
         });
     });
-}
+
+    updateCartCount();
+});
 
 function updateCartCount() {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
