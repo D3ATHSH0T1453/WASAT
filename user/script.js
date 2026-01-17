@@ -1,22 +1,24 @@
 document.addEventListener("DOMContentLoaded", () => {
-    if (!localStorage.getItem('products')) {
+    loadAndDisplayProducts();
+    updateCartCount();
+});
+
+function loadAndDisplayProducts() {
+    let products = JSON.parse(localStorage.getItem('products'));
+
+    if (!products) {
         fetch('../json/products.json')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
+            .then(response => response.json())
+            .then(data => {
+                localStorage.setItem('products', JSON.stringify(data));
+                displayProducts(data);
             })
-            .then(products => {
-                localStorage.setItem('products', JSON.stringify(products));
-                console.log('Products saved to localStorage');
-                window.location.reload();
-            })
-            .catch(error => {
-                console.error('Error loading products:', error);
-            });
+            .catch(error => console.error('Error loading products:', error));
     } else {
-        const products = JSON.parse(localStorage.getItem('products')) || [];
+        displayProducts(products);
+    }
+
+    function displayProducts(products) {
         const productsContainer = document.getElementById("midden");
 
         productsContainer.innerHTML = '';
@@ -33,11 +35,11 @@ document.addEventListener("DOMContentLoaded", () => {
             productElement.dataset.index = product.originalIndex;
 
             productElement.innerHTML = `
-                <div class="borderfotoss p-3">
-                    <img src="${product.urlLink}" alt="${product.product}" style="width: 50%; height: auto;">
-                    <div class="info-text">${product.product}</div>
-                </div>
-            `;
+            <div class="borderfotoss p-3">
+                <img src="${product.urlLink}" alt="${product.product}" style="width: 50%; height: auto;">
+                <div class="info-text">${product.product}</div>
+            </div>
+        `;
 
             productsContainer.appendChild(productElement);
         });
@@ -59,7 +61,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 window.location.href = "user/productinfo.html";
             });
         });
-
-        updateCartCount();
     }
-});
+}
+
+function updateCartCount() {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+    const cartCountElement = document.getElementById('cart-count');
+
+    if (cartCount > 0) {
+        cartCountElement.textContent = cartCount;
+        cartCountElement.style.display = 'block';
+    } else {
+        cartCountElement.style.display = 'none';
+    }
+}
